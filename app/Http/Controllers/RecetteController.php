@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecetteController extends Controller
 {
+
+    private $sql = [
+        'selectAll'     => 'SELECT * FROM PRODUIT',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,9 @@ class RecetteController extends Controller
      */
     public function index()
     {
-        //
+        $recettes = DB::select(DB::raw($this->sql['selectAll']));
+
+        return view('recette.index', compact('recettes'));
     }
 
     /**
@@ -45,7 +52,10 @@ class RecetteController extends Controller
      */
     public function show($id)
     {
-        //
+        $recette = DB::select(DB::raw("SELECT * FROM PRODUIT WHERE PRODUIT.ID_PRD = $id"));
+        $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette[0]->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
+
+        return view('recette.show', compact('recette', 'ingredients'));
     }
 
     /**
