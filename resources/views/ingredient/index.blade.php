@@ -12,6 +12,7 @@
                     <th>#</th>
                     <th>Nom</th>
                     <th>Prix</th>
+                    <th class="text-right">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,10 +21,17 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $ing->NGR_NOM }}</td>
                         <td>{{ $ing->NGR_PRIX }}</td>
+                        <td class="text-right">
+                            {!! Form::open(['route' => ['ingredient.destroy', $ing->ID_NGR], 'method' => 'DELETE']) !!}
+                                {!! Form::submit('', ['class' => 'close']) !!}
+                            {!! Form::close() !!}
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+
+            <a href="{{ route('ingredient.create') }}" class="btn btn-primary pull-right" style="margin:20px 0;">Ajouter un ingrédient</a>
         </div>
     </div>
 @endsection
