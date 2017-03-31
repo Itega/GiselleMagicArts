@@ -27,9 +27,8 @@ class IngredientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('ingredient.create');
     }
 
     /**
@@ -38,43 +37,12 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(Request $request) {
+        DB::insert(DB::raw('
+            INSERT INTO ingredient(NGR_NOM, NGR_PRIX) VALUES ("'. htmlentities($request->all()['NRG_NOM']) .'", '. htmlentities($request->all()['NRG_PRIX']) .')
+        '));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return redirect(route('ingredient.index'));
     }
 
     /**
@@ -83,8 +51,9 @@ class IngredientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        DB::delete(DB::raw('DELETE FROM ingredient WHERE ID_NGR = '. $id));
+
+        return redirect(route('ingredient.index'));
     }
 }
