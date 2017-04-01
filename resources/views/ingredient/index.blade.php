@@ -23,7 +23,9 @@
                         <td>{{ $ing->NGR_PRIX }}</td>
                         <td class="text-right">
                             {!! Form::open(['route' => ['ingredient.destroy', $ing->ID_NGR], 'method' => 'DELETE']) !!}
-                                {!! Form::submit('', ['class' => 'close']) !!}
+                                <button type="submit" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             {!! Form::close() !!}
                         </td>
                     </tr>
