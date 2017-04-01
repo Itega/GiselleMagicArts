@@ -86,7 +86,7 @@
                     <a href="{{ route('ingredient.index') }}">Ingrédients</a>
                     <a href="{{ route('recette.index') }}">Recettes</a>
                     <a href="{{ route('inventeur.index') }}">Inventeurs</a>
-                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="{{ route('fournisseur.index') }}">Fournisseur</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
