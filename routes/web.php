@@ -25,4 +25,6 @@ Route::resource('ingredient', 'IngredientController', ['except' => ['show', 'edi
 
 Route::resource('produit', 'ProduitController');
 
-Route::resource('inventeur', 'InventeurController');
+Route::resource('inventeur', 'InventeurController', ['only' => ['index', 'show']]);
+
+Route::resource('fournisseur', 'FournisseurController');
