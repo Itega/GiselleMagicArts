@@ -52,6 +52,8 @@ class IngredientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
+        DB::delete(DB::raw('DELETE FROM utiliser WHERE ID_NGR = '. $id));
+        DB::delete(DB::raw('DELETE FROM stock WHERE ID_NGR = '. $id));
         DB::delete(DB::raw('DELETE FROM ingredient WHERE ID_NGR = '. $id));
 
         return redirect(route('ingredient.index'));
