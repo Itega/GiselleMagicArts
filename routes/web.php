@@ -22,3 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::resource('recette', 'RecetteController');
 
 Route::resource('ingredient', 'IngredientController', ['except' => ['show', 'edit', 'update']]);
+
+Route::resource('produit', 'ProduitController');
+
+Route::resource('inventeur', 'InventeurController');
