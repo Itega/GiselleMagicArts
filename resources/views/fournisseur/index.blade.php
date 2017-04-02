@@ -19,7 +19,11 @@
                 @foreach($fournisseurs as $k => $fournisseur)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $fournisseur->FRN_NOM }}</td>
+                        <td>
+                            <a href="{{ route('fournisseur.show', $fournisseur->ID_FRN) }}">
+                                {{ $fournisseur->FRN_NOM }}
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
