@@ -50,9 +50,16 @@ class FournisseurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+        $fournisseur = DB::select(DB::raw('SELECT * FROM fournisseur WHERE ID_FRN = '. $id));
+        $fournisseur = $fournisseur[0];
+        $fournisseur->ingredients = DB::select(DB::raw('
+            SELECT * FROM stock
+            INNER JOIN ingredient ON stock.ID_NGR = ingredient.ID_NGR
+            WHERE ID_FRN = '. $fournisseur->ID_FRN
+        ));
+
+        return view('fournisseur.show', compact('fournisseur'));
     }
 
     /**
