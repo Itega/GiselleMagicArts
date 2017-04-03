@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "efc36441c4640480cc4669355f18db31",
     "content-hash": "6671dee75df573b6766e688cd16abff0",
     "packages": [
         {
@@ -59,7 +58,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2017-01-19 08:19:49"
+            "time": "2017-01-19T08:19:49+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -673,7 +672,7 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2017-01-05 08:46:19"
+            "time": "2017-01-05T08:46:19+00:00"
         },
         {
             "name": "monolog/monolog",
