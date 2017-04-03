@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class RecetteController extends Controller
 {
@@ -53,8 +54,8 @@ class RecetteController extends Controller
     public function show($id)
     {
         $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
-        $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette[0]->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
-
+        $recette = $recette[0];
+        $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
         return view('recette.show', compact('recette', 'ingredients'));
     }
 
@@ -67,9 +68,16 @@ class RecetteController extends Controller
     public function edit($id)
     {
         $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
+        $recette = $recette[0];
         $ingredients = DB::select(DB::raw("SELECT UTILISER.*, INGREDIENT.NGR_NOM FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = $id AND INGREDIENT.ID_NGR = UTILISER.ID_NGR"));
+        $temp = DB::select(DB::raw("SELECT INGREDIENT.NGR_NOM, INGREDIENT.ID_NGR FROM INGREDIENT"));
 
-        return view('recette.edit', compact('recette', 'ingredients'));
+        foreach($temp as $item)
+        {
+            $array[$item->ID_NGR] = $item->NGR_NOM;
+        }
+
+        return view('recette.edit', compact('recette', 'ingredients', 'array'));
     }
 
     /**
@@ -81,7 +89,32 @@ class RecetteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        for($i = 1; $i<count($request->all())/4 - 1; $i++) {
+            $id_ngr = $request->all()['ID_NGR' . $i];
+            $fraichMin = $request->all()['FRAICHEUR_MIN' . $i];
+            $fraichMax = $request->all()['FRAICHEUR_MAX' . $i];
+            $quantite = $request->all()['QUANTITE' . $i];
+            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
+                            VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
+                            ON DUPLICATE KEY UPDATE
+                            FRAICHEUR_MIN = $fraichMin,
+                            FRAICHEUR_MAX = $fraichMax,
+                            QUANTITE = $quantite;"));
+        }
+        if($request->all()['ID_NGR'] != null && $request->all()['FRAICHEUR_MIN'] != null && $request->all()['FRAICHEUR_MAX'] != null && $request->all()['QUANTITE'] != null)
+        {
+            $id_ngr = $request->all()['ID_NGR'];
+            $fraichMin = $request->all()['FRAICHEUR_MIN'];
+            $fraichMax = $request->all()['FRAICHEUR_MAX'];
+            $quantite = $request->all()['QUANTITE'];
+            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
+                            VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
+                            ON DUPLICATE KEY UPDATE
+                            FRAICHEUR_MIN = $fraichMin,
+                            FRAICHEUR_MAX = $fraichMax,
+                            QUANTITE = $quantite;"));
+        }
+        return Redirect::route('recette.show', $id);
     }
 
     /**
