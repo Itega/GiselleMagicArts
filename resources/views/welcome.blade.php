@@ -59,8 +59,8 @@
                 text-transform: uppercase;
             }
 
-            .m-b-md {
-                margin-bottom: 30px;
+            .m-t-md {
+                margin-top: 30px;
             }
         </style>
     </head>
@@ -78,16 +78,16 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title">
                     Bienvenue à Magic Arts
                 </div>
+                <small><strong>Vendeur de potion de mère en fille</strong></small>
 
-                <div class="links">
+                <div class="links m-t-md">
                     <a href="{{ route('ingredient.index') }}">Ingrédients</a>
                     <a href="{{ route('recette.index') }}">Recettes</a>
                     <a href="{{ route('inventeur.index') }}">Inventeurs</a>
                     <a href="{{ route('fournisseur.index') }}">Fournisseur</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
