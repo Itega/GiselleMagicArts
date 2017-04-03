@@ -28,3 +28,5 @@ Route::resource('produit', 'ProduitController');
 Route::resource('inventeur', 'InventeurController', ['only' => ['index', 'show']]);
 
 Route::resource('fournisseur', 'FournisseurController');
+
+Route::get('utiliser/{id_rct}/{id_ngr}', 'UtiliserController@detruire');
