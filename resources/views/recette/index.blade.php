@@ -24,6 +24,11 @@
                                 {{ $recette->RCT_NOM }}
                             </a>
                         </th>
+                        <th>
+                            <a href="{{ route('recette.edit', $recette->ID_RCT) }}">
+                                Editer
+                            </a>
+                        </th>
                     </tr>
                 @endforeach
                 </tbody>

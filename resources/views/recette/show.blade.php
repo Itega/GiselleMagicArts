@@ -35,6 +35,5 @@
                 </tbody>
             </table>
         </div>
-        <a href="{{ route('recette.index') }}" class="btn btn-primary center-block">Retour à la liste</a>
     </div>
 @endsection
