@@ -5,8 +5,9 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2 style="display:inline-block;">Editer la reçette de {{ $recette[0]->RCT_NOM }}</h2>
+                <h2 style="display:inline-block;">Editer la reçette de {{ $recette->RCT_NOM }}</h2>
             </div>
+            {!! Form::open(['route' => ['recette.update', $recette->ID_RCT], 'method' => 'PUT']) !!}
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -15,11 +16,11 @@
                     <th>Quantité</th>
                     <th>Fraicheur minimale</th>
                     <th>Fraicheur maximale</th>
+                    <th>Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>
-                {!! Form::open(['route' => 'recette.update']) !!}
-                @foreach ($ingredients as $key => $ingredient)
+                @foreach ($ingredients as $k => $ingredient)
                     <tr>
                         <td>
                             <p>{{ $loop->iteration }}</p>
@@ -28,40 +29,49 @@
                             <a href="{{ route('ingredient.index').'#'.$ingredient->ID_NGR }}">
                                 {{ $ingredient->NGR_NOM }}
                             </a>
+                            {!! Form::hidden('ID_NGR' . $loop->iteration, $ingredient->ID_NGR) !!}
                         </td>
                         <td>
-                            {{--{{ $ingredient->QUANTITE }}--}}
-                            {!! Form::number('NRG_PRIX', $ingredient->QUANTITE, ['class' => 'form-control', 'step' => '0.01']) !!}
+                            {!! Form::number('QUANTITE' . $loop->iteration, $ingredient->QUANTITE, ['class' => 'form-control', 'step' => '1']) !!}
                         </td>
                         <td>
-                            {{ $ingredient->FRAICHEUR_MIN }}
+                            {!! Form::number('FRAICHEUR_MIN' . $loop->iteration, $ingredient->FRAICHEUR_MIN, ['class' => 'form-control', 'step' => '1']) !!}
                         </td>
                         <td>
-                            {{ $ingredient->FRAICHEUR_MAX }}
+                            {!! Form::number('FRAICHEUR_MAX' . $loop->iteration, $ingredient->FRAICHEUR_MAX, ['class' => 'form-control', 'step' => '1']) !!}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ action('UtiliserController@detruire', ['id' => $recette->ID_RCT, 'ing' => $ingredient->ID_NGR]) }}">
+                                X
+                            </a>
                         </td>
                     </tr>
                 @endforeach
-
+                <tr>
+                    <td>
+                        <p>+</p>
+                    </td>
+                    <td>
+                        {!! Form::select('ID_NGR', $array, null, ['placeholder' => 'Ajouter un ingrédient ...']) !!}
+                    </td>
+                    <td>
+                        {!! Form::number('QUANTITE', null, ['class' => 'form-control', 'step' => '1']) !!}
+                    </td>
+                    <td>
+                        {!! Form::number('FRAICHEUR_MIN', null, ['class' => 'form-control', 'step' => '1']) !!}
+                    </td>
+                    <td>
+                        {!! Form::number('FRAICHEUR_MAX', null, ['class' => 'form-control', 'step' => '1']) !!}
+                    </td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
-                <h2>Ajouter un ingrédient</h2>
-
-                <div class="form-group">
-                    {!! Form::label('NRG_NOM', 'Nom') !!}
-                    <div class="input-group">
-                        <span class="input-group-addon"><strong>@</strong></span>
-                        {!! Form::text('NRG_NOM', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('NRG_PRIX', 'Prix') !!}
-                    <div class="input-group">
-                        <span class="input-group-addon">€</span>
-                        {!! Form::number('NRG_PRIX', null, ['class' => 'form-control', 'step' => '0.01']) !!}
-                    </div>
-                </div>
-                {{ Form::submit('Modifier la recette', ['class' => 'btn btn-primary pull-right']) }}
-                {!! Form::close() !!}
+            <br>
+            {!! Form::submit('Modifier', ['class' => 'btn btn-primary pull-right']) !!}
+            {!! Form::close() !!}
+            <br>
+            <br>
         </div>
     </div>
 @endsection

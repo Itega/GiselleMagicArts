@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 style="display:inline-block;">{{ $recette[0]->RCT_NOM }}</h2>
+            <div class="panel-heading" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="display:inline-block;">{{ $recette->RCT_NOM }}</h2>
+                <a class="btn btn-primary pull-right" href="{{ route('recette.edit', $recette->ID_RCT) }}">
+                    Editer
+                </a>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
