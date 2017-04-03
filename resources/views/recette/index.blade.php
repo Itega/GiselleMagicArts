@@ -4,14 +4,13 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>Liste des produits</h2>
+                <h2>Liste des reçettes</h2>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>#</th>
                     <th>Nom</th>
-                    <th>Prix</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,12 +20,9 @@
                             {{ $loop->iteration }}
                         </th>
                         <th>
-                            <a href="{{ route('recette.show', $recette->ID_PRD) }}">
-                                {{ $recette->PRD_NOM }}
+                            <a href="{{ route('recette.show', $recette->ID_RCT) }}">
+                                {{ $recette->RCT_NOM }}
                             </a>
-                        </th>
-                        <th>
-                            <p>{{ $recette->PRD_PRIX }}</p>
                         </th>
                     </tr>
                 @endforeach

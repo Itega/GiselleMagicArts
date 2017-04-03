@@ -5,16 +5,14 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2 style="display:inline-block;">{{ $recette[0]->PRD_NOM }}</h2>
-                @if ($recette[0]->PRD_IS_POTION)
-                    <h3 class="pull-right">Diluant : {{ $recette[0]->PRD_DILUANT }}</h3>
-                @endif
+                <h2 style="display:inline-block;">{{ $recette[0]->RCT_NOM }}</h2>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Ingrédients</th>
+                        <th>Prix</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,12 +26,15 @@
                                 {{ $ingredient->NGR_NOM }}
                             </a>
                         </td>
+                        <td>
+                            {{ $ingredient->NGR_PRIX }}
+                        </td>
                     </tr>
                 @endforeach
 
                 </tbody>
             </table>
         </div>
-        <a href="{{ route('recette.index', $ingredient->ID_NGR) }}" class="btn btn-primary center-block">Retour à la liste</a>
+        <a href="{{ route('recette.index') }}" class="btn btn-primary center-block">Retour à la liste</a>
     </div>
 @endsection
