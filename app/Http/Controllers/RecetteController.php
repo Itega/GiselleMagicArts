@@ -9,7 +9,7 @@ class RecetteController extends Controller
 {
 
     private $sql = [
-        'selectAll'     => 'SELECT * FROM PRODUIT',
+        'selectAll'     => 'SELECT * FROM RECETTE',
     ];
     /**
      * Display a listing of the resource.
@@ -52,7 +52,7 @@ class RecetteController extends Controller
      */
     public function show($id)
     {
-        $recette = DB::select(DB::raw("SELECT * FROM PRODUIT WHERE PRODUIT.ID_PRD = $id"));
+        $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
         $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette[0]->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
 
         return view('recette.show', compact('recette', 'ingredients'));
@@ -66,7 +66,10 @@ class RecetteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
+        $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette[0]->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
+
+        return view('recette.show', compact('recette', 'ingredients'));
     }
 
     /**
