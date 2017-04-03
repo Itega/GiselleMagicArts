@@ -67,9 +67,9 @@ class RecetteController extends Controller
     public function edit($id)
     {
         $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
-        $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette[0]->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
+        $ingredients = DB::select(DB::raw("SELECT UTILISER.*, INGREDIENT.NGR_NOM FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = $id AND INGREDIENT.ID_NGR = UTILISER.ID_NGR"));
 
-        return view('recette.show', compact('recette', 'ingredients'));
+        return view('recette.edit', compact('recette', 'ingredients'));
     }
 
     /**
