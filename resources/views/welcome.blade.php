@@ -79,9 +79,9 @@
 
             <div class="content">
                 <div class="title">
-                    Bienvenue à Magic Arts
+                    Bienvenue sur Magic Arts
                 </div>
-                <small><strong>Vendeur de potion de mère en fille</strong></small>
+                <small><strong>Vendeuses de potions de mère en fille</strong></small>
 
                 <div class="links m-t-md">
                     <a href="{{ route('ingredient.index') }}">Ingrédients</a>
