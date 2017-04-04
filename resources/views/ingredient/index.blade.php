@@ -20,7 +20,7 @@
                     <tr id="{{ $ing->ID_NGR }}">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $ing->NGR_NOM }}</td>
-                        <td>{{ $ing->NGR_PRIX }}</td>
+                        <td>{{ $ing->NGR_PRIX }} €</td>
                         <td class="text-right">
                             {!! Form::open(['route' => ['ingredient.destroy', $ing->ID_NGR], 'method' => 'DELETE']) !!}
                                 <button type="submit" class="close" aria-label="Close">
