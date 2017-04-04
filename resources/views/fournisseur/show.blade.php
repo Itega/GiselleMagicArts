@@ -12,11 +12,11 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <td>#</td>
-                    <td>Nom</td>
-                    <td>Quantité en stock</td>
-                    <td>Date d'arrivée</td>
-                    <td>Date Limite de Consommation</td>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Quantité en stock</th>
+                    <th>Date d'arrivée</th>
+                    <th>Date Limite de Consommation</th>
                 </tr>
                 </thead>
 
