@@ -88,6 +88,7 @@
                     <a href="{{ route('recette.index') }}">Recettes</a>
                     <a href="{{ route('inventeur.index') }}">Inventeurs</a>
                     <a href="{{ route('fournisseur.index') }}">Fournisseur</a>
+                    <a href="{{ route('produit.index') }}">Produit</a>
                 </div>
             </div>
         </div>
