@@ -11,24 +11,23 @@
                 <tr>
                     <th>#</th>
                     <th>Nom</th>
+                    <th class="text-right">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($recettes as $recette)
                     <tr>
-                        <th>
-                            {{ $loop->iteration }}
-                        </th>
-                        <th>
+                        <t>{{ $loop->iteration }}</t>
+                        <td>
                             <a href="{{ route('recette.show', $recette->ID_RCT) }}">
                                 {{ $recette->RCT_NOM }}
                             </a>
-                        </th>
-                        <th>
+                        </td>
+                        <td class="text-right">
                             <a href="{{ route('recette.edit', $recette->ID_RCT) }}">
-                                Editer
+                                <i class="glyphicon glyphicon-edit" aria-hidden="true" style="color: #000;"></i>
                             </a>
-                        </th>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
