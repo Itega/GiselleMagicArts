@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h3>{{ $inventeur->NVN_NOM }}</h3>
+        <h3>{{ $inventeur->NVN_PRENOM }} {{ $inventeur->NVN_NOM }}</h3>
 
+        @if($inventeur->recettes != null)
         <div class="panel panel-default"> <!-- TODO Collapse panel -->
             <div class="panel-heading">
                 <h5>Ces recettes</h5>
@@ -31,5 +32,6 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 @endsection

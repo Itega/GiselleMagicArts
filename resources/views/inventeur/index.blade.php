@@ -14,6 +14,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nom</th>
+                        <th class="text-right">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,16 @@
                                 <a href="{{ route('inventeur.show', $inventeur->ID_NVN) }}">
                                     {{ $inventeur->NVN_NOM }}
                                 </a>
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ route('inventeur.edit', $inventeur->ID_NVN) }}" style="margin-right: 5px; color: #000;">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                {!! Form::open(['route' => ['inventeur.destroy', $inventeur->ID_NVN], 'method' => 'DELETE', 'class' => 'pull-right']) !!}
+                                <button type="submit" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach
