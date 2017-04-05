@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ route('ingredient.create') }}" class="btn btn-primary">Ajouter un ingredient</a>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>Liste des ingrédients</h2>

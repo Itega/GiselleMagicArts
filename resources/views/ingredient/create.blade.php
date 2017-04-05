@@ -8,14 +8,18 @@
         <div class="form-group">
             {!! Form::label('NRG_NOM', 'Nom') !!}
             <div class="input-group">
-                <span class="input-group-addon"><strong>@</strong></span>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-tag"></i>
+                </span>
                 {!! Form::text('NRG_NOM', null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="form-group">
             {!! Form::label('NRG_PRIX', 'Prix') !!}
             <div class="input-group">
-                <span class="input-group-addon">€</span>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-eur"></i>
+                </span>
                 {!! Form::number('NRG_PRIX', null, ['class' => 'form-control', 'step' => '0.01']) !!}
             </div>
         </div>
