@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ route('fournisseur.create') }}" class="btn btn-primary">Ajouter un fournisseur</a>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>Liste des fournisseurs</h2>
