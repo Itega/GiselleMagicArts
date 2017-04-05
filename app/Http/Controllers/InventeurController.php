@@ -28,9 +28,8 @@ class InventeurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('inventeur.create');
     }
 
     /**
@@ -39,9 +38,14 @@ class InventeurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $values = $request->all();
+
+        DB::insert(DB::raw('
+            INSERT INTO inventeur(NVN_NOM, NVN_PRENOM) VALUES ("'. $values['NVN_NOM'] .'", "'. $values['NVN_PRENOM'] .'")
+        '));
+
+        return redirect(route('inventeur.show', DB::getPdo()->lastInsertId()));
     }
 
     /**
@@ -88,8 +92,26 @@ class InventeurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        DB::delete(DB::raw('
+            DELETE FROM contient WHERE ID_PRD IN (SELECT ID_PRD FROM produit WHERE ID_RCT IN (SELECT ID_RCT FROM inventeur WHERE ID_NVN = '. $id .'))'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM composer WHERE ID_PRD IN (SELECT ID_PRD FROM produit WHERE ID_RCT IN (SELECT ID_RCT FROM inventeur WHERE ID_NVN = '. $id .'))'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM produit WHERE ID_RCT IN (SELECT ID_RCT FROM inventeur WHERE ID_NVN = '. $id .')'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM utiliser WHERE ID_RCT IN (SELECT ID_RCT FROM inventeur WHERE ID_NVN = '. $id .')'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM recette WHERE ID_NVN = '. $id
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM inventeur WHERE ID_NVN = '. $id
+        ));
+
+        return redirect(route('inventeur.index'));
     }
 }
