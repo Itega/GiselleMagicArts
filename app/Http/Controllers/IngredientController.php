@@ -46,6 +46,39 @@ class IngredientController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id) {
+        $ingredient = DB::select(DB::raw('
+            SELECT * FROM ingredient WHERE ID_NGR = '. $id
+        ));
+        $ingredient = $ingredient[0];
+
+        return view('ingredient.edit', compact('ingredient'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id) {
+        $values = $request->all();
+
+        DB::update(DB::raw('
+            UPDATE ingredient SET NGR_NOM = "'. $values['NGR_NOM'] .'", NGR_PRIX = '. $values['NGR_PRIX'] .'
+            WHERE ID_NGR = '. $id
+        ));
+
+        return redirect(url('ingredient/#'. $id));
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
