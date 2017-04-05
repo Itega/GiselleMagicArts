@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ route('produit.create') }}" class="btn btn-primary">Ajouter un produit</a>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2>Liste des produits</h2>

@@ -11,9 +11,9 @@
                 <div class="form-group">
                     {!! Form::label('PRD_NOM', 'Nom du produit') !!}
                     <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-tag"></i>
-                    </span>
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-tag"></i>
+                        </span>
                         {!! Form::text('PRD_NOM', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
@@ -22,9 +22,9 @@
                 <div class="form-group">
                     {!! Form::label('PRD_PRIX', 'Prix du produit') !!}
                     <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="glyphicon glyphicon-eur"></i>
-                    </span>
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-eur"></i>
+                        </span>
                         {!! Form::number('PRD_PRIX', null, ['class' => 'form-control', 'step' => '0.01']) !!}
                     </div>
                 </div>
