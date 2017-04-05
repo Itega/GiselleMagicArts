@@ -17,7 +17,7 @@
                 <tbody>
                 @foreach ($recettes as $recette)
                     <tr>
-                        <t>{{ $loop->iteration }}</t>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
                             <a href="{{ route('recette.show', $recette->ID_RCT) }}">
                                 {{ $recette->RCT_NOM }}
