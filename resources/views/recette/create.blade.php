@@ -34,7 +34,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('RCT_TEMPERATURE', 'Température de préparation') !!}
-                    {!! Form::number('RCT_TEMPERATURE', 0, ['class' => 'form-control', 'step' => '1']) !!}
+                    <div class="input-group">
+                        {!! Form::number('RCT_TEMPERATURE', 0, ['class' => 'form-control', 'step' => '1']) !!}
+                        <span class="input-group-addon">°c</span>
+                    </div>
                 </div>
             </div>
         </div>
