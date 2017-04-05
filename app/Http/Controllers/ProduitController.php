@@ -36,6 +36,7 @@ class ProduitController extends Controller
             $tmp[$recette->ID_RCT] = $recette->RCT_NOM;
         $recettes = $tmp;
 
+        $tmp = [];
         $diluants = DB::select(DB::raw('
             SELECT ID_DLN, DLN_NOM FROM diluant
         '));
@@ -44,7 +45,16 @@ class ProduitController extends Controller
             $tmp[$diluant->ID_DLN] = $diluant->DLN_NOM;
         $diluants = $tmp;
 
-        return view('produit.create', compact('recettes', 'diluants'));
+        $tmp = [];
+        $recipients = DB::select(DB::raw('
+            SELECT ID_RCP, RCP_NOM FROM recipient
+        '));
+        $tmp[null] = 'Pas de récipient';
+        foreach ($recipients as $k => $recipient)
+            $tmp[$recipient->ID_RCP] = $recipient->RCP_NOM;
+        $recipients = $tmp;
+
+        return view('produit.create', compact('recettes', 'diluants', 'recipients'));
     }
 
     /**
@@ -54,7 +64,7 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
+        dd($request->all());
     }
 
     /**
