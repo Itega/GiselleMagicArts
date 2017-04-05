@@ -21,11 +21,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('recette', 'RecetteController');
 
-Route::resource('ingredient', 'IngredientController', ['except' => ['show', 'edit', 'update']]);
+Route::resource('ingredient', 'IngredientController');
 
 Route::resource('produit', 'ProduitController');
 
-Route::resource('inventeur', 'InventeurController', ['only' => ['index', 'show']]);
+Route::resource('inventeur', 'InventeurController');
 
 Route::resource('fournisseur', 'FournisseurController');
 
