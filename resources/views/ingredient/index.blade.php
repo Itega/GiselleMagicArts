@@ -24,10 +24,13 @@
                         <td>{{ $ing->NGR_NOM }}</td>
                         <td>{{ $ing->NGR_PRIX }} €</td>
                         <td class="text-right">
-                            {!! Form::open(['route' => ['ingredient.destroy', $ing->ID_NGR], 'method' => 'DELETE']) !!}
-                                <button type="submit" class="close" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <a href="{{ route('ingredient.edit', $ing->ID_NGR) }}" style="margin-right: 5px; color: #000;">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            {!! Form::open(['route' => ['ingredient.destroy', $ing->ID_NGR], 'method' => 'DELETE', 'class' => 'pull-right']) !!}
+                            <button type="submit" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             {!! Form::close() !!}
                         </td>
                     </tr>
