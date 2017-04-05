@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class RecetteController extends Controller
 {
-
-    private $sql = [
-        'selectAll'     => 'SELECT * FROM RECETTE',
-    ];
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +15,7 @@ class RecetteController extends Controller
      */
     public function index()
     {
-        $recettes = DB::select(DB::raw($this->sql['selectAll']));
+        $recettes = DB::select(DB::raw('SELECT RECETTE.*, INVENTEUR.NVN_NOM, INVENTEUR.NVN_PRENOM FROM RECETTE, INVENTEUR WHERE RECETTE.ID_NVN = INVENTEUR.ID_NVN'));
 
         return view('recette.index', compact('recettes'));
     }
@@ -31,7 +27,14 @@ class RecetteController extends Controller
      */
     public function create()
     {
-        //
+        $temp = DB::select(DB::raw("SELECT * FROM INVENTEUR"));
+
+        foreach($temp as $item)
+        {
+            $inventeurs[$item->ID_NVN] = $item->NVN_PRENOM . ' ' . $item->NVN_NOM;
+        }
+
+        return view('recette.create', compact('inventeurs'));
     }
 
     /**
@@ -42,7 +45,12 @@ class RecetteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id_nvn = $request->all()['ID_NVN'];
+        $rct_nom = $request->all()['RCT_NOM'];
+        $rct_temp = $request->all()['RCT_TEMPERATURE'];
+        DB::select(DB::raw("INSERT INTO RECETTE(ID_NVN, RCT_NOM, RCT_VALIDEE, RCT_TEMPERATURE) VALUES ($id_nvn, '" . $rct_nom . "', 0, $rct_temp);"));
+        $id = DB::select(DB::raw('SELECT RECETTE.ID_RCT FROM RECETTE ORDER BY ID_RCT DESC LIMIT 1;'))[0]->ID_RCT;
+        return Redirect::route('recette.edit', $id);
     }
 
     /**
@@ -53,7 +61,7 @@ class RecetteController extends Controller
      */
     public function show($id)
     {
-        $recette = DB::select(DB::raw("SELECT * FROM RECETTE WHERE RECETTE.ID_RCT = $id"));
+        $recette = DB::select(DB::raw("SELECT RECETTE.*, INVENTEUR.NVN_NOM, INVENTEUR.NVN_PRENOM FROM RECETTE, INVENTEUR WHERE RECETTE.ID_NVN = INVENTEUR.ID_NVN AND RECETTE.ID_RCT = $id"));
         $recette = $recette[0];
         $ingredients = DB::select(DB::raw("SELECT INGREDIENT.* FROM UTILISER, INGREDIENT WHERE UTILISER.ID_RCT = " . $recette->ID_RCT . " AND UTILISER.ID_NGR = INGREDIENT.ID_NGR"));
         return view('recette.show', compact('recette', 'ingredients'));
@@ -89,31 +97,7 @@ class RecetteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        for($i = 1; $i<count($request->all())/4 - 1; $i++) {
-            $id_ngr = $request->all()['ID_NGR' . $i];
-            $fraichMin = $request->all()['FRAICHEUR_MIN' . $i];
-            $fraichMax = $request->all()['FRAICHEUR_MAX' . $i];
-            $quantite = $request->all()['QUANTITE' . $i];
-            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
-                            VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
-                            ON DUPLICATE KEY UPDATE
-                            FRAICHEUR_MIN = $fraichMin,
-                            FRAICHEUR_MAX = $fraichMax,
-                            QUANTITE = $quantite;"));
-        }
-        if($request->all()['ID_NGR'] != null && $request->all()['FRAICHEUR_MIN'] != null && $request->all()['FRAICHEUR_MAX'] != null && $request->all()['QUANTITE'] != null)
-        {
-            $id_ngr = $request->all()['ID_NGR'];
-            $fraichMin = $request->all()['FRAICHEUR_MIN'];
-            $fraichMax = $request->all()['FRAICHEUR_MAX'];
-            $quantite = $request->all()['QUANTITE'];
-            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
-                            VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
-                            ON DUPLICATE KEY UPDATE
-                            FRAICHEUR_MIN = $fraichMin,
-                            FRAICHEUR_MAX = $fraichMax,
-                            QUANTITE = $quantite;"));
-        }
+        DB::select(DB::raw("UPDATE RECETTE SET RCT_VALIDEE = 1 WHERE ID_RCT = $id"));
         return Redirect::route('recette.show', $id);
     }
 
