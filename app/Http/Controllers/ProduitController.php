@@ -64,7 +64,25 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        dd($request->all());
+        $values = $request->all();
+        $isPotion = $values['ID_DLN'] == null ? '0' : '1';
+        $values['ID_DLN'] = $values['ID_DLN'] == null ? 'NULL': $values['ID_DLN'];
+
+        DB::insert(DB::raw("
+            INSERT INTO produit(ID_RCT, PRD_NOM, ID_DLN, PRD_PRIX, PRD_IS_POTION) VALUES(
+              ". $values['ID_RCT'] .", '". $values['PRD_NOM'] ."', ". $values['ID_DLN'] .", ". $values['PRD_PRIX'] .", ". $isPotion ."
+            )
+        "));
+
+        $idProduit = DB::getPdo()->lastInsertId();
+
+        if($values['ID_DLN'] != "NULL") {
+            DB::insert(DB::raw('
+                INSERT INTO contient(ID_RCP, ID_PRD) VALUES('. $values['ID_RCP'] .', '. $idProduit .')
+            '));
+        }
+
+        return redirect(route('produit.show', $idProduit));
     }
 
     /**
@@ -79,11 +97,13 @@ class ProduitController extends Controller
             WHERE ID_PRD = '. $id
         ));
         $produit = $produit[0];
-        $produit->diluant = DB::select(DB::raw('
-            SELECT DLN_NOM FROM diluant
-            WHERE ID_DLN = '. $produit->ID_DLN
-        ));
-        $produit->diluant = $produit->diluant[0];
+        if($produit->ID_DLN != null) {
+            $produit->diluant = DB::select(DB::raw('
+                SELECT DLN_NOM FROM diluant
+                WHERE ID_DLN = '. $produit->ID_DLN
+            ));
+            $produit->diluant = $produit->diluant[0];
+        }
         $produit->recette = DB::select(DB::raw('
             SELECT RCT_NOM, RCT_TEMPERATURE FROM recette
             WHERE ID_RCT = '. $produit->ID_RCT .'
