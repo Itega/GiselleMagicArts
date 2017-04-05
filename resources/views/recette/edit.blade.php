@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <h2 style="display:inline-block;">Editer la reçette de {{ $recette->RCT_NOM }}</h2>
             </div>
-            {!! Form::open(['route' => ['recette.update', $recette->ID_RCT], 'method' => 'PUT']) !!}
+            {!! Form::open(['route' => ['utiliser.update', $recette->ID_RCT], 'method' => 'PUT']) !!}
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>

@@ -13,6 +13,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nom</th>
+                    <th>Inventeur</th>
                     <th class="text-right">Action</th>
                 </tr>
                 </thead>
@@ -24,6 +25,11 @@
                             <a href="{{ route('recette.show', $recette->ID_RCT) }}">
                                 {{ $recette->RCT_NOM }}
                             </a>
+                        </td>
+                        <td>
+                            {{ $recette->NVN_PRENOM }}
+                             
+                            {{ $recette->NVN_NOM }}
                         </td>
                         <td class="text-right">
                             <a href="{{ route('recette.edit', $recette->ID_RCT) }}">

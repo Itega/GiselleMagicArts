@@ -4,7 +4,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading" style="display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="display:inline-block;">{{ $recette->RCT_NOM }}</h2>
+                <h2 style="display:inline-block;">{{ $recette->RCT_NOM }}<br><small>par {{ $recette->NVN_PRENOM }} {{ $recette->NVN_NOM }}</small></h2>
                 <a class="btn btn-primary pull-right" href="{{ route('recette.edit', $recette->ID_RCT) }}">
                     Editer
                 </a>
@@ -36,6 +36,11 @@
 
                 </tbody>
             </table>
+            @if ($recette->RCT_VALIDEE == 0)
+                {!! Form::open(['route' => ['recette.update', $recette->ID_RCT], 'method' => 'PUT']) !!}
+                    {!! Form::submit('Valider la reçette', ['class' => 'btn btn-primary pull-right']) !!}
+                {!! Form::close() !!}
+            @endif
         </div>
     </div>
 @endsection
