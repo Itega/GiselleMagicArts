@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h3>Créer une reçette</h3>
+        <h3>Créer une recette</h3>
 
         {!! Form::open(['route' => 'recette.store']) !!}
         <div class="row">

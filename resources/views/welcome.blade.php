@@ -67,6 +67,7 @@
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
+                <img src="potion.png" height="200px" />
                 <div class="title">
                     Bienvenue sur Magic Arts
                 </div>
