@@ -109,6 +109,22 @@ class RecetteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::delete(DB::raw('
+            DELETE FROM CONTIENT WHERE ID_PRD IN (SELECT ID_PRD FROM PRODUIT WHERE ID_RCT = '. $id .')'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM COMPOSER WHERE ID_PRD IN (SELECT ID_PRD FROM PRODUIT WHERE ID_RCT = '. $id .')'
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM PRODUIT WHERE ID_RCT = '. $id
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM UTILISER WHERE ID_RCT = '. $id
+        ));
+        DB::delete(DB::raw('
+            DELETE FROM RECETTE WHERE ID_RCT = '. $id
+        ));
+
+        return redirect(route('recette.index'));
     }
 }
