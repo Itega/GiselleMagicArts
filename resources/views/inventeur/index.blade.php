@@ -14,7 +14,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nom</th>
-                        <th class="text-right">Action</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <a href="{{ route('inventeur.show', $inventeur->ID_NVN) }}">
-                                    {{ $inventeur->NVN_NOM }}
+                                    {{ $inventeur->NVN_NOM }} {{ $inventeur->NVN_PRENOM }}
                                 </a>
                             </td>
                             <td class="text-right">
