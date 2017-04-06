@@ -162,6 +162,16 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
+        $values = $request->all();
+        $isPotion = $values['ID_DLN'] == null ? '0' : '1';
+
+        DB::update(DB::raw('
+            UPDATE produit SET ID_RCT = '. $values['ID_RCT'] .', ID_DLN = '. $values['ID_DLN'] .',
+            PRD_NOM = "'. $values['PRD_NOM'] .'", PRD_PRIX = '. $values['PRD_PRIX'] .',
+            PRD_IS_POTION = '. $isPotion .' WHERE ID_PRD = '. $id
+        ));
+
+        return redirect(route('produit.show', $id));
     }
 
     /**
