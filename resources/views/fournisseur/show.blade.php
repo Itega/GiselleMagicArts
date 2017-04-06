@@ -4,6 +4,7 @@
     <div class="container">
         <h2>{{ $fournisseur->FRN_NOM }}</h2>
 
+        @if($fournisseur->ingredients != null)
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>Liste des ingrédients</h3>
@@ -33,5 +34,6 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 @endsection
