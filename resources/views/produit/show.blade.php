@@ -25,5 +25,6 @@
                 <p><strong>Recette:</strong> {{ $produit->recette->RCT_NOM }}</p>
             </div>
         </div>
+        <a href="{{ route('produit.edit', $produit->ID_PRD) }}" class="btn btn-primary pull-right">Éditer</a>
     </div>
 @endsection
