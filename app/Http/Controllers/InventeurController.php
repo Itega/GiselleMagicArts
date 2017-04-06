@@ -69,9 +69,13 @@ class InventeurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        $inventeur = DB::select(DB::raw('
+            SELECT * FROM inventeur WHERE ID_NVN = '. $id
+        ));
+        $inventeur = $inventeur[0];
+
+        return view('inventeur.edit', compact('inventeur'));
     }
 
     /**
@@ -81,9 +85,14 @@ class InventeurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $values = $request->all();
+
+        DB::update(DB::raw('
+            UPDATE inventeur SET NVN_NOM = "'. $values['NVN_NOM'] .'", NVN_PRENOM = "'. $values['NVN_PRENOM'] .'" WHERE ID_NVN = '. $id
+        ));
+
+        return redirect(route('inventeur.show', $id));
     }
 
     /**
