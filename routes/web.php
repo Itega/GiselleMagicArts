@@ -31,4 +31,6 @@ Route::resource('fournisseur', 'FournisseurController');
 
 Route::get('utiliser/{id_rct}/{id_ngr}', 'UtiliserController@detruire');
 
+Route::get('save', 'UtiliserController@save');
+
 Route::resource('utiliser', 'UtiliserController', ['except' => ['show']]);
