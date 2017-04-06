@@ -14,7 +14,7 @@
                     <th>#</th>
                     <th>Nom</th>
                     <th>Prix</th>
-                    <th class="text-right">Action</th>
+                    <th class="text-right">Actions</th>
                 </tr>
                 </thead>
                 <tbody>

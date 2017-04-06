@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        {!! Form::submit('Ajouter un produit', ['class' => 'btn btn-primary pull-right']) !!}
+        {!! Form::submit('Éditer l\'ingrédient', ['class' => 'btn btn-primary pull-right']) !!}
         {!! Form::close() !!}
     </div>
 @endsection
