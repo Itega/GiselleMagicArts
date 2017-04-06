@@ -21,6 +21,13 @@ class UtiliserController extends Controller
         return Redirect::route('recette.show', $id);
     }
 
+    public function save()
+    {
+        $f = fopen("backup.sql", "w+");
+
+        $recettes = DB::select(DB::raw('SELECT RECETTE, INVENTEUR.NVN_NOM, INVENTEUR.NVN_PRENOM FROM RECETTE, INVENTEUR WHERE RECETTE.ID_NVN = INVENTEUR.ID_NVN'));
+    }
+
     public function update(Request $request, $id)
     {
         for($i = 1; $i<count($request->all())/4 - 1; $i++) {
@@ -28,7 +35,7 @@ class UtiliserController extends Controller
             $fraichMin = $request->all()['FRAICHEUR_MIN' . $i];
             $fraichMax = $request->all()['FRAICHEUR_MAX' . $i];
             $quantite = $request->all()['QUANTITE' . $i];
-            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
+            DB::insert(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
                             VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
                             ON DUPLICATE KEY UPDATE
                             FRAICHEUR_MIN = $fraichMin,
@@ -41,7 +48,7 @@ class UtiliserController extends Controller
             $fraichMin = $request->all()['FRAICHEUR_MIN'];
             $fraichMax = $request->all()['FRAICHEUR_MAX'];
             $quantite = $request->all()['QUANTITE'];
-            DB::select(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
+            DB::insert(DB::raw("INSERT INTO UTILISER(ID_RCT, ID_NGR, FRAICHEUR_MIN, FRAICHEUR_MAX, QUANTITE)
                             VALUES ($id, $id_ngr, $fraichMin, $fraichMax, $quantite)
                             ON DUPLICATE KEY UPDATE
                             FRAICHEUR_MIN = $fraichMin,
