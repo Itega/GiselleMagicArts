@@ -24,6 +24,9 @@
                         <td>{{ $ing->NGR_NOM }}</td>
                         <td>{{ $ing->NGR_PRIX }} €</td>
                         <td class="text-right">
+                            <a href="{{ route('cart.add.ingredient', $ing->ID_NGR) }}" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                            </a>
                             <a href="{{ route('ingredient.edit', $ing->ID_NGR) }}" style="margin-right: 5px; color: #000;">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
