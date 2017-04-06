@@ -120,7 +120,8 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $produit = DB::select(DB::raw('SELECT * FROM produit WHERE produit.ID_PRD = '. $id))[0];
+        $produit = DB::select(DB::raw('SELECT * FROM produit WHERE produit.ID_PRD = '. $id));
+        $produit = $produit[0];
 
         $recettes = DB::select(DB::raw('
             SELECT ID_RCT, RCT_NOM FROM recette
@@ -147,7 +148,8 @@ class ProduitController extends Controller
             $tmp[$recipient->ID_RCP] = $recipient->RCP_NOM;
         $recipients = $tmp;
 
-        $idrcp = DB::select(DB::raw('SELECT ID_RCP FROM contient WHERE ID_PRD = '. $id))[0]->ID_RCP;
+        $idrcp = DB::select(DB::raw('SELECT ID_RCP FROM contient WHERE ID_PRD = '. $id));
+        $idrcp = $idrcp == null ? 'null' : $idrcp[0]->ID_RCP;
 
         return view('produit.edit', compact('produit', 'diluants', 'recettes', 'recipients', 'idrcp'));
     }
