@@ -30,6 +30,9 @@
                         <td>{{ $produit->PRD_PRIX }} €</td>
                         <td>{{ $produit->PRD_IS_POTION ? 'Potion' : 'Onguent' }}</td>
                         <td class="text-right">
+                            <a href="{{ route('cart.add.produit', $produit->ID_PRD) }}" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                            </a>
                             <a href="{{ route('produit.edit', $produit->ID_PRD) }}" style="margin-right: 5px; color: #000;">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
