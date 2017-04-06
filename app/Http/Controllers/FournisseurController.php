@@ -28,9 +28,8 @@ class FournisseurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('fournisseur.create');
     }
 
     /**
@@ -39,9 +38,14 @@ class FournisseurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $values = $request->all();
+
+        DB::insert(DB::raw('
+            INSERT INTO fournisseur(FRN_NOM) VALUES("'. $values['FRN_NOM'] .'")
+        '));
+
+        return redirect(route('fournisseur.show', DB::getPdo()->lastInsertId()));
     }
 
     /**
@@ -68,9 +72,14 @@ class FournisseurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        $fournisseur = DB::select(DB::raw('
+            SELECT * FROM fournisseur
+            WHERE ID_FRN = '. $id
+        ));
+        $fournisseur = $fournisseur[0];
+
+        return view('fournisseur.edit', compact('fournisseur'));
     }
 
     /**
@@ -80,9 +89,14 @@ class FournisseurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $values = $request->all();
+
+        DB::update(DB::raw('
+            UPDATE fournisseur SET FRN_NOM = "'. $values['FRN_NOM'] .'" WHERE ID_FRN = '. $id
+        ));
+
+        return redirect(route('fournisseur.show', $id));
     }
 
     /**
@@ -91,8 +105,10 @@ class FournisseurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        DB::delete(DB::raw('DELETE FROM stock WHERE ID_FRN = '. $id));
+        DB::delete(DB::raw('DELETE FROM fournisseur WHERE ID_FRN = '. $id));
+
+        return redirect(route('fournisseur.index'));
     }
 }
