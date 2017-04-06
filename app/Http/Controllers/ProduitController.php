@@ -121,6 +121,35 @@ class ProduitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+        $produit = DB::select(DB::raw('SELECT * FROM produit WHERE produit.ID_PRD = '. $id));
+        $produit = $produit[0];
+
+        $recettes = DB::select(DB::raw('
+            SELECT ID_RCT, RCT_NOM FROM recette
+        '));
+        foreach ($recettes as $k => $recette)
+            $tmp[$recette->ID_RCT] = $recette->RCT_NOM;
+        $recettes = $tmp;
+
+        $tmp = [];
+        $diluants = DB::select(DB::raw('
+            SELECT ID_DLN, DLN_NOM FROM diluant
+        '));
+        $tmp[null] = 'Pas de diluant';
+        foreach ($diluants as $k => $diluant)
+            $tmp[$diluant->ID_DLN] = $diluant->DLN_NOM;
+        $diluants = $tmp;
+
+        $tmp = [];
+        $recipients = DB::select(DB::raw('
+            SELECT ID_RCP, RCP_NOM FROM recipient
+        '));
+        $tmp[null] = 'Pas de récipient';
+        foreach ($recipients as $k => $recipient)
+            $tmp[$recipient->ID_RCP] = $recipient->RCP_NOM;
+        $recipients = $tmp;
+
+        return view('produit.edit', compact('produit', 'diluants', 'recettes', 'recipients'));
     }
 
     /**
