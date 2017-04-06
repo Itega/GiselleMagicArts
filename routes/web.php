@@ -34,3 +34,10 @@ Route::get('utiliser/{id_rct}/{id_ngr}', 'UtiliserController@detruire');
 Route::get('save', 'UtiliserController@save');
 
 Route::resource('utiliser', 'UtiliserController', ['except' => ['show']]);
+
+Route::group(['prefix' => 'cart'], function() {
+    Route::get('/', 'CartController@index')->name('cart.index');
+    Route::get('checkout', 'CartController@checkout')->name('cart.checkout');
+    Route::get('add/p/{id}', ['uses' => 'CartController@addProduit'])->where('id', '[0-9]+')->name('cart.add.produit');
+    Route::get('add/i/{id}', ['uses' => 'CartController@addIngredient'])->where('id', '[0-9]+')->name('cart.add.ingredient');
+});
