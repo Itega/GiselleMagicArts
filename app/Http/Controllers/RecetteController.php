@@ -48,7 +48,7 @@ class RecetteController extends Controller
         $id_nvn = $request->all()['ID_NVN'];
         $rct_nom = $request->all()['RCT_NOM'];
         $rct_temp = $request->all()['RCT_TEMPERATURE'];
-        DB::select(DB::raw("INSERT INTO RECETTE(ID_NVN, RCT_NOM, RCT_VALIDEE, RCT_TEMPERATURE) VALUES ($id_nvn, '" . $rct_nom . "', 0, $rct_temp);"));
+        DB::insert(DB::raw("INSERT INTO RECETTE(ID_NVN, RCT_NOM, RCT_VALIDEE, RCT_TEMPERATURE) VALUES ($id_nvn, '" . $rct_nom . "', 0, $rct_temp);"));
         $id = DB::select(DB::raw('SELECT RECETTE.ID_RCT FROM RECETTE ORDER BY ID_RCT DESC LIMIT 1;'))[0]->ID_RCT;
         return Redirect::route('recette.edit', $id);
     }
@@ -97,7 +97,7 @@ class RecetteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::select(DB::raw("UPDATE RECETTE SET RCT_VALIDEE = 1 WHERE ID_RCT = $id"));
+        DB::update(DB::raw("UPDATE RECETTE SET RCT_VALIDEE = 1 WHERE ID_RCT = $id"));
         return Redirect::route('recette.show', $id);
     }
 

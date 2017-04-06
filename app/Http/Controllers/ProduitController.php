@@ -110,7 +110,6 @@ class ProduitController extends Controller
             AND RCT_VALIDEE = 1
         '));
         $produit->recette = $produit->recette[0];
-
         return view('produit.show', compact('produit'));
     }
 
