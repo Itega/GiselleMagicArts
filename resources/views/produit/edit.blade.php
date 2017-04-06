@@ -48,7 +48,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('ID_RCP', 'Récipient') !!}
-                    {!! Form::select('ID_RCP', $recipients, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('ID_RCP', $recipients, $idrcp, ['class' => 'form-control']) !!}
                 </div>
             </div>
         </div>
