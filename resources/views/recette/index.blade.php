@@ -14,7 +14,7 @@
                     <th>#</th>
                     <th>Nom</th>
                     <th>Inventeur</th>
-                    <th class="text-right">Action</th>
+                    <th class="text-right">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,8 +33,13 @@
                         </td>
                         <td class="text-right">
                             <a href="{{ route('recette.edit', $recette->ID_RCT) }}">
-                                <i class="glyphicon glyphicon-edit" aria-hidden="true" style="color: #000;"></i>
+                                <i class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 5px; color: #000;"></i>
                             </a>
+                            {!! Form::open(['route' => ['recette.destroy', $recette->ID_RCT], 'method' => 'DELETE', 'class' => 'pull-right']) !!}
+                            <button type="submit" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
