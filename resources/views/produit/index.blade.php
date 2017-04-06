@@ -15,6 +15,7 @@
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Type</th>
+                    <th class="text-right">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,16 @@
                         </td>
                         <td>{{ $produit->PRD_PRIX }} €</td>
                         <td>{{ $produit->PRD_IS_POTION ? 'Potion' : 'Onguent' }}</td>
+                        <td class="text-right">
+                            <a href="{{ route('produit.edit', $produit->ID_PRD) }}" style="margin-right: 5px; color: #000;">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            {!! Form::open(['route' => ['produit.destroy', $produit->ID_PRD], 'method' => 'DELETE', 'class' => 'pull-right']) !!}
+                            <button type="submit" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {!! Form::close() !!}
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

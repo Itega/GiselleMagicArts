@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container">
-        <h3>Créer un nouveau produit</h3>
+        <h3>Éditer le produit {{ $produit->PRD_NOM }}</h3>
 
-        {!! Form::open(['route' => 'produit.store']) !!}
+        {!! Form::open(['route' => ['produit.update', $produit->ID_PRD], 'method' => 'PUT']) !!}
         <div class="row">
+
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('PRD_NOM', 'Nom du produit') !!}
@@ -13,7 +14,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-tag"></i>
                         </span>
-                        {!! Form::text('PRD_NOM', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('PRD_NOM', $produit->PRD_NOM, ['class' => 'form-control']) !!}
                     </div>
                 </div>
             </div>
@@ -24,7 +25,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-eur"></i>
                         </span>
-                        {!! Form::number('PRD_PRIX', null, ['class' => 'form-control', 'step' => '0.01']) !!}
+                        {!! Form::number('PRD_PRIX', $produit->PRD_PRIX, ['class' => 'form-control', 'step' => '0.01']) !!}
                     </div>
                 </div>
             </div>
@@ -33,13 +34,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('ID_DLN', 'Diluant') !!}
-                    {!! Form::select('ID_DLN', $diluants, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('ID_DLN', $diluants, $produit->ID_DLN, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('ID_RCT', 'Recette') !!}
-                    {!! Form::select('ID_RCT', $recettes, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('ID_RCT', $recettes, $produit->ID_RCT, ['class' => 'form-control']) !!}
                 </div>
             </div>
         </div>
@@ -52,7 +53,7 @@
             </div>
         </div>
 
-        {!! Form::submit('Ajouter un produit', ['class' => 'btn btn-primary pull-right']) !!}
+        {!! Form::submit('Éditer le produit', ['class' => 'btn btn-primary pull-right']) !!}
         {!! Form::close() !!}
     </div>
 @endsection
